@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="tr" class="h-full bg-slate-50 text-slate-900">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Girişim Analiz Sistemi</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .screen { display: none; }
+        .screen.active { display: block; }
+        .custom-scrollbar::-webkit-scrollbar { width: 5px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f5f9; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+    </style>
+</head>
+<body class="h-full flex flex-col bg-slate-50 text-slate-900 antialiased">
+
+    <!-- MINIMALIST NAVIGATION BAR -->
+    <header class="bg-white border-b border-slate-200 px-6 py-3.5 sticky top-0 z-50 flex items-center justify-between gap-4">
+        <div class="flex items-center space-x-3">
+            <div class="bg-black text-white w-8 h-8 rounded-lg flex items-center justify-center font-bold text-sm">
+                V
+            </div>
+            <div>
+                <h1 class="font-bold text-sm text-slate-900 tracking-tight">Venture Analytics</h1>
+                <p class="text-[11px] text-slate-500 font-medium">Pazar Değerlendirme & Analiz Platformu</p>
+            </div>
+        </div>
+
+        <!-- EKRAN GEÇİŞ BUTONLARI -->
+        <div class="flex items-center space-x-1 bg-slate-100 p-1 rounded-lg border border-slate-200 text-xs overflow-x-auto">
+            <button onclick="switchScreen('screen-login')" id="btn-screen-login" class="nav-screen-btn px-3 py-1.5 rounded-md text-slate-600 hover:text-black font-medium transition">1. Giriş</button>
+            <button onclick="switchScreen('screen-dashboard')" id="btn-screen-dashboard" class="nav-screen-btn px-3 py-1.5 rounded-md text-slate-600 hover:text-black font-medium transition">2. Dashboard</button>
+            <button onclick="switchScreen('screen-form')" id="btn-screen-form" class="nav-screen-btn px-3 py-1.5 rounded-md text-slate-600 hover:text-black font-medium transition">3. Analiz Formu</button>
+            <button onclick="switchScreen('screen-result')" id="btn-screen-result" class="nav-screen-btn px-3 py-1.5 rounded-md text-slate-600 hover:text-black font-medium transition">4. Sonuç</button>
+            <button onclick="switchScreen('screen-report')" id="btn-screen-report" class="nav-screen-btn px-3 py-1.5 rounded-md text-slate-600 hover:text-black font-medium transition">5. Rapor</button>
+            <button onclick="switchScreen('screen-investor')" id="btn-screen-investor" class="nav-screen-btn px-3 py-1.5 rounded-md text-slate-600 hover:text-black font-medium transition">6. Yatırımcı Paneli</button>
+        </div>
+    </header>
+
+    <!-- MAIN CONTAINER -->
+    <main class="flex-1 overflow-y-auto custom-scrollbar p-6 md:p-10 max-w-6xl w-full mx-auto">
+
+        <!-- ========================================== -->
+        <!-- EKRAN 1: GİRİŞ EKRANI -->
+        <!-- ========================================== -->
+        <section id="screen-login" class="screen active">
+            <div class="max-w-sm mx-auto my-12 bg-white border border-slate-200 rounded-2xl p-8 shadow-sm">
+                <div class="text-center mb-8">
+                    <div class="w-10 h-10 bg-slate-900 text-white rounded-xl mx-auto flex items-center justify-center text-sm font-bold mb-3">
+                        VA
+                    </div>
+                    <h2 class="text-lg font-bold text-slate-900">Hesabınıza Giriş Yapın</h2>
+                    <p class="text-slate-500 text-xs mt-1">Platforma erişmek için bilgilerinizi girin</p>
+                </div>
+
+                <form onsubmit="event.preventDefault(); switchScreen('screen-dashboard');" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1.5">Kullanıcı Rolü</label>
+                        <div class="grid grid-cols-2 gap-2">
+                            <label class="cursor-pointer border border-slate-900 bg-slate-900 text-white rounded-lg p-2.5 flex items-center justify-center space-x-2 text-xs font-medium">
+                                <input type="radio" name="role" checked class="accent-white">
+                                <span>Girişimci</span>
+                            </label>
+                            <label onclick="switchScreen('screen-investor')" class="cursor-pointer border border-slate-200 bg-white text-slate-700 rounded-lg p-2.5 flex items-center justify-center space-x-2 text-xs font-medium hover:border-slate-400 transition">
+                                <input type="radio" name="role" class="accent-slate-900">
+                                <span>Yatırımcı</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">E-Posta Adresi</label>
+                        <input type="email" value="girisimci@venture.com" required class="w-full bg-slate-50 border border-slate-200 rounded-lg py-2 px-3 text-xs text-slate-900 focus:outline-none focus:border-slate-900">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">Parola</label>
+                        <input type="password" value="••••••••••••" required class="w-full bg-slate-50 border border-slate-200 rounded-lg py-2 px-3 text-xs text-slate-900 focus:outline-none focus:border-slate-900">
+                    </div>
+
+                    <button type="submit" class="w-full bg-slate-900 hover:bg-black text-white font-medium py-2.5 rounded-lg transition text-xs flex items-center justify-center space-x-2 mt-2">
+                        <span>Giriş Yap</span>
+                        <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- EKRAN 2: GİRİŞİMCİ DASHBOARD -->
+        <!-- ========================================== -->
+        <section id="screen-dashboard" class="screen">
+            <div class="space-y-6">
+                <!-- Header -->
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 pb-5">
+                    <div>
+                        <h2 class="text-xl font-bold text-slate-900">Girişimci Kontrol Paneli</h2>
+                        <p class="text-slate-500 text-xs mt-1">Girişim projeleriniz ve oluşturulan pazar analizleri.</p>
+                    </div>
+                    <button onclick="switchScreen('screen-form')" class="bg-slate-900 hover:bg-black text-white px-4 py-2.5 rounded-lg font-medium text-xs transition flex items-center justify-center space-x-2">
+                        <i class="fa-solid fa-plus text-[10px]"></i>
+                        <span>Yeni Analiz Başlat</span>
+                    </button>
+                </div>
+
+                <!-- Stats Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="bg-white border border-slate-200 p-5 rounded-xl">
+                        <div class="text-slate-500 text-xs font-medium mb-1">Toplam Analiz</div>
+                        <div class="text-2xl font-bold text-slate-900">4 Proje</div>
+                        <div class="text-[11px] text-slate-400 mt-1">Kayıtlı rapor sayısı</div>
+                    </div>
+                    <div class="bg-white border border-slate-200 p-5 rounded-xl">
+                        <div class="text-slate-500 text-xs font-medium mb-1">Ortalama Pazar Skoru</div>
+                        <div class="text-2xl font-bold text-slate-900">83.5 <span class="text-xs text-slate-400 font-normal">/ 100</span></div>
+                        <div class="text-[11px] text-emerald-600 font-medium mt-1">Yüksek uyum oranı</div>
+                    </div>
+                    <div class="bg-white border border-slate-200 p-5 rounded-xl">
+                        <div class="text-slate-500 text-xs font-medium mb-1">Ortalama İşlem Süresi</div>
+                        <div class="text-2xl font-bold text-slate-900">1.4 sn</div>
+                        <div class="text-[11px] text-slate-400 mt-1">Optimum performans</div>
+                    </div>
+                </div>
+
+                <!-- Table -->
+                <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm">
+                    <div class="p-4 border-b border-slate-200 flex justify-between items-center bg-slate-50">
+                        <h3 class="font-semibold text-slate-900 text-xs">Son Analizler</h3>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs text-slate-600">
+                            <thead class="bg-white text-slate-500 font-medium border-b border-slate-200">
+                                <tr>
+                                    <th class="p-3.5">Proje Adı</th>
+                                    <th class="p-3.5">Sektör</th>
+                                    <th class="p-3.5">Pazar Skoru</th>
+                                    <th class="p-3.5">Tarih</th>
+                                    <th class="p-3.5 text-right">Eylem</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100">
+                                <tr class="hover:bg-slate-50 transition">
+                                    <td class="p-3.5 font-medium text-slate-900">FinAI - Bütçe Yönetimi</td>
+                                    <td class="p-3.5"><span class="bg-slate-100 text-slate-700 px-2.5 py-1 rounded-md text-[11px]">FinTech</span></td>
+                                    <td class="p-3.5 font-semibold text-slate-900">88 / 100</td>
+                                    <td class="p-3.5 text-slate-400">04.11.2026</td>
+                                    <td class="p-3.5 text-right">
+                                        <button onclick="switchScreen('screen-report')" class="bg-slate-100 hover:bg-slate-200 text-slate-900 px-3 py-1 rounded-md text-[11px] font-medium transition">Detay</button>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-slate-50 transition">
+                                    <td class="p-3.5 font-medium text-slate-900">HealthTracker Platform</td>
+                                    <td class="p-3.5"><span class="bg-slate-100 text-slate-700 px-2.5 py-1 rounded-md text-[11px]">HealthTech</span></td>
+                                    <td class="p-3.5 font-semibold text-slate-900">79 / 100</td>
+                                    <td class="p-3.5 text-slate-400">28.10.2026</td>
+                                    <td class="p-3.5 text-right">
+                                        <button onclick="switchScreen('screen-report')" class="bg-slate-100 hover:bg-slate-200 text-slate-900 px-3 py-1 rounded-md text-[11px] font-medium transition">Detay</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- EKRAN 3: ANALİZ FORM U -->
+        <!-- ========================================== -->
+        <section id="screen-form" class="screen">
+            <div class="max-w-xl mx-auto bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+                <div class="flex items-center justify-between border-b border-slate-200 pb-4 mb-5">
+                    <div>
+                        <h2 class="text-base font-bold text-slate-900">Yeni Analiz Formu</h2>
+                        <p class="text-xs text-slate-500 mt-0.5">Girişim bilgilerinizi eksiksiz giriniz.</p>
+                    </div>
+                    <button onclick="switchScreen('screen-dashboard')" class="text-slate-400 hover:text-slate-600 transition">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+
+                <form onsubmit="event.preventDefault(); switchScreen('screen-result');" class="space-y-4 text-xs">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block font-semibold text-slate-700 mb-1">Girişim Adı</label>
+                            <input type="text" value="EcoLogix Lojistik" required class="w-full bg-slate-50 border border-slate-200 rounded-lg p-2.5 text-slate-900 focus:outline-none focus:border-slate-900">
+                        </div>
+                        <div>
+                            <label class="block font-semibold text-slate-700 mb-1">Sektör</label>
+                            <select class="w-full bg-slate-50 border border-slate-200 rounded-lg p-2.5 text-slate-900 focus:outline-none focus:border-slate-900">
+                                <option>Lojistik & Tedarik</option>
+                                <option selected>FinTech / Finans</option>
+                                <option>Yazılım & SaaS</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block font-semibold text-slate-700 mb-1">İş Fikri Özeti</label>
+                        <textarea rows="3" required class="w-full bg-slate-50 border border-slate-200 rounded-lg p-2.5 text-slate-900 focus:outline-none focus:border-slate-900">Rotalama algoritmaları kullanarak şehir içi dağıtımlarda yakıt tasarrufu ve rota optimizasyonu sağlayan B2B SaaS platformu.</textarea>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block font-semibold text-slate-700 mb-1">Hedef Kitle</label>
+                            <input type="text" value="E-ticaret firmaları ve acenteler" required class="w-full bg-slate-50 border border-slate-200 rounded-lg p-2.5 text-slate-900 focus:outline-none focus:border-slate-900">
+                        </div>
+                        <div>
+                            <label class="block font-semibold text-slate-700 mb-1">Gelir Modeli</label>
+                            <input type="text" value="Aylık Abonelik (SaaS)" required class="w-full bg-slate-50 border border-slate-200 rounded-lg p-2.5 text-slate-900 focus:outline-none focus:border-slate-900">
+                        </div>
+                    </div>
+
+                    <div class="pt-3 flex items-center justify-end space-x-3 border-t border-slate-200">
+                        <button type="button" onclick="switchScreen('screen-dashboard')" class="px-4 py-2 rounded-lg text-slate-600 hover:text-slate-900 transition">Vazgeç</button>
+                        <button type="submit" class="bg-slate-900 hover:bg-black text-white font-medium px-5 py-2 rounded-lg transition">
+                            Analizi Başlat
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- EKRAN 4: ANALİZ SONUÇ -->
+        <!-- ========================================== -->
+        <section id="screen-result" class="screen">
+            <div class="space-y-6">
+                <div class="bg-white border border-slate-200 p-6 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-4 shadow-sm">
+                    <div>
+                        <span class="text-[11px] text-slate-500 font-semibold uppercase tracking-wider">Analiz Tamamlandı</span>
+                        <h2 class="text-xl font-bold text-slate-900 mt-1">EcoLogix - Pazar Uyum Analizi</h2>
+                        <p class="text-xs text-slate-500 mt-0.5">Sorgu Süresi: 1.34 sn | Doğrulanmış Pazar Verisi</p>
+                    </div>
+                    <button onclick="switchScreen('screen-report')" class="bg-slate-900 hover:bg-black text-white px-4 py-2.5 rounded-lg text-xs font-medium transition">
+                        Rapor Detayı &rarr;
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-white border border-slate-200 p-8 rounded-2xl flex flex-col items-center justify-center text-center shadow-sm">
+                        <h3 class="text-xs font-semibold text-slate-500 mb-2">Pazar Uyum Skoru</h3>
+                        <div class="text-5xl font-extrabold text-slate-900">88<span class="text-base text-slate-400 font-normal"> / 100</span></div>
+                        <span class="mt-4 bg-slate-100 text-slate-900 font-medium px-3 py-1 rounded-full text-xs">Güçlü Pazar Potansiyeli</span>
+                    </div>
+
+                    <div class="md:col-span-2 bg-white border border-slate-200 p-6 rounded-2xl space-y-4 shadow-sm">
+                        <h3 class="font-bold text-slate-900 text-sm">Pazar ve Risk Değerlendirmesi</h3>
+                        <div class="space-y-3 text-xs text-slate-600">
+                            <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-100">
+                                <strong class="text-slate-900 block mb-0.5">Pazar Büyüklüğü:</strong> Sektör verilerine göre ilgili pazar yıllık %18.4 büyüme göstermektedir.
+                            </div>
+                            <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-100">
+                                <strong class="text-slate-900 block mb-0.5">Rekabet Durumu:</strong> Pazarda mevcut oyuncular bulunmakla birlikte sürdürülebilirlik odaklı yaklaşım fark yaratmaktadır.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- EKRAN 5: YATIRIMCI RAPOR DETAYI -->
+        <!-- ========================================== -->
+        <section id="screen-report" class="screen">
+            <div class="bg-white border border-slate-200 rounded-2xl p-8 space-y-6 shadow-sm">
+                <div class="flex flex-col md:flex-row md:items-center justify-between border-b border-slate-200 pb-5 gap-4">
+                    <div>
+                        <h2 class="text-xl font-bold text-slate-900">Yatırımcı Analiz Raporu</h2>
+                        <p class="text-xs text-slate-500 mt-0.5">Rapor ID: #ST-88492 | Tarih: 04.11.2026</p>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <button onclick="alert('PDF indirildi.')" class="bg-slate-900 hover:bg-black text-white px-4 py-2 rounded-lg text-xs font-medium transition flex items-center space-x-2">
+                            <i class="fa-solid fa-download text-[10px]"></i>
+                            <span>PDF İndir</span>
+                        </button>
+                        <button onclick="alert('JSON kopyalandı.')" class="bg-slate-100 hover:bg-slate-200 text-slate-900 px-4 py-2 rounded-lg text-xs font-medium transition border border-slate-200">
+                            <span>JSON Export</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs">
+                    <div class="space-y-2">
+                        <h3 class="font-bold text-slate-900">1. Pazar ve Rekabet Değerlendirmesi</h3>
+                        <p class="text-slate-600 leading-relaxed bg-slate-50 p-4 rounded-xl border border-slate-100">
+                            Pazardaki ana rakiplerin fiyatlandırma politikaları ve hedef kitle odakları incelenmiştir. Sunulan çözüm yeşil lojistik alanındaki boşluğu doldurmaktadır.
+                        </p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <h3 class="font-bold text-slate-900">2. Finansal Öngörü</h3>
+                        <p class="text-slate-600 leading-relaxed bg-slate-50 p-4 rounded-xl border border-slate-100">
+                            SaaS abonelik modeli ile ilk 12 ay sonunda $45,000 ARR potansiyeli öngörülmektedir.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+                    <span>Yatırımcı Görünümü</span>
+                    <button onclick="switchScreen('screen-investor')" class="text-slate-900 font-semibold hover:underline">Yatırımcı Paneline Geç &rarr;</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- EKRAN 6: YATIRIMCI PANELİ -->
+        <!-- ========================================== -->
+        <section id="screen-investor" class="screen">
+            <div class="space-y-6">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 pb-5">
+                    <div>
+                        <h2 class="text-xl font-bold text-slate-900">Yatırımcı İnceleme Paneli</h2>
+                        <p class="text-xs text-slate-500 mt-0.5">Yüksek pazar skoruna sahip onaylı girişimler.</p>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <input type="text" placeholder="Sektör veya girişim ara..." class="bg-white border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-900 focus:outline-none">
+                        <button class="bg-slate-900 text-white px-4 py-2 rounded-lg text-xs font-medium">Filtrele</button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-white border border-slate-200 p-5 rounded-xl space-y-3 shadow-sm">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <span class="bg-slate-100 text-slate-700 text-[11px] font-medium px-2.5 py-0.5 rounded-md">Lojistik SaaS</span>
+                                <h3 class="font-bold text-slate-900 text-sm mt-2">Girişim Kodu: #ST-88492</h3>
+                            </div>
+                            <span class="text-slate-900 font-bold text-sm bg-slate-50 px-2.5 py-1 rounded-lg border border-slate-200">Skor: 88</span>
+                        </div>
+                        <p class="text-xs text-slate-500">
+                            Dağıtım süreçlerinde yakıt ve rota optimizasyonu sağlayan B2B platform.
+                        </p>
+                        <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
+                            <span class="text-[11px] text-slate-400">Tahmin Doğruluğu: %87</span>
+                            <button onclick="switchScreen('screen-report')" class="bg-slate-100 hover:bg-slate-200 text-slate-900 px-3 py-1 rounded-md text-xs font-medium transition">İncele</button>
+                        </div>
+                    </div>
+
+                    <div class="bg-white border border-slate-200 p-5 rounded-xl space-y-3 shadow-sm">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <span class="bg-slate-100 text-slate-700 text-[11px] font-medium px-2.5 py-0.5 rounded-md">FinTech</span>
+                                <h3 class="font-bold text-slate-900 text-sm mt-2">Girişim Kodu: #ST-41209</h3>
+                            </div>
+                            <span class="text-slate-900 font-bold text-sm bg-slate-50 px-2.5 py-1 rounded-lg border border-slate-200">Skor: 84</span>
+                        </div>
+                        <p class="text-xs text-slate-500">
+                            KOBİ'ler için nakit akışı tahmini oluşturan finansal analiz platformu.
+                        </p>
+                        <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
+                            <span class="text-[11px] text-slate-400">Tahmin Doğruluğu: %89</span>
+                            <button onclick="switchScreen('screen-report')" class="bg-slate-100 hover:bg-slate-200 text-slate-900 px-3 py-1 rounded-md text-xs font-medium transition">İncele</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-white border-t border-slate-200 px-6 py-3.5 text-center text-xs text-slate-400">
+        <span>Venture Analytics System — Prototip Teslimatı</span>
+    </footer>
+
+    <!-- INTERACTION LOGIC -->
+    <script>
+        function switchScreen(screenId) {
+            const screens = document.querySelectorAll('.screen');
+            screens.forEach(s => s.classList.remove('active'));
+
+            const targetScreen = document.getElementById(screenId);
+            if(targetScreen) {
+                targetScreen.classList.add('active');
+            }
+
+            const navButtons = document.querySelectorAll('.nav-screen-btn');
+            navButtons.forEach(btn => {
+                btn.classList.remove('bg-slate-900', 'text-white');
+                btn.classList.add('text-slate-600');
+            });
+
+            const activeBtn = document.getElementById('btn-' + screenId);
+            if(activeBtn) {
+                activeBtn.classList.add('bg-slate-900', 'text-white');
+                activeBtn.classList.remove('text-slate-600');
+            }
+
+            document.querySelector('main').scrollTop = 0;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            switchScreen('screen-login');
+        });
+    </script>
+</body>
+</html>
